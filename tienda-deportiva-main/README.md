@@ -1,204 +1,348 @@
-# Tienda Deportiva API
+# Tienda Deportiva - Sistema Completo (Swing + API + BD)
 
-Backend completo para gestión de tienda deportiva desarrollado con **Spring Boot 3.2.5**, **Java 17** y **MySQL/H2**.
+**Sistema de gestión de tienda deportiva** con interfaz gráfica Swing que consume una API REST desarrollada con Spring Boot.
 
-## ✅ Características
+---
 
-- **CRUD Completo** para 4 entidades (Categorías, Productos, Clientes, Ventas)
-- **Validaciones** con Bean Validation (@Valid, @NotNull, @NotBlank, etc.)
-- **Manejo Centralizado de Errores** con @ControllerAdvice
-- **Reglas de Negocio** (validación de stock, totales, estados)
-- **Búsquedas Simples** con query params
-- **Documentación con Swagger/OpenAPI**
-- **Persistencia con JPA/Hibernate**
+## 📋 Contenido del Proyecto
 
-## 📋 Requisitos
+Este proyecto incluye:
+- ✅ **Backend REST API** (Spring Boot 3.2.5)
+- ✅ **Frontend Swing** (Interfaz gráfica Java)
+- ✅ **Base de Datos** (H2/MySQL)
+- ✅ **CRUD Completo** (Categorías, Productos, Clientes, Ventas)
 
+---
+
+## 🚀 Instalación y Ejecución
+
+### 1️⃣ Requisitos
 - Java 17+
 - Maven 3.6+
 - IntelliJ IDEA (recomendado)
 
-## 🚀 Instalación y Ejecución
-
-### 1. Clonar/Descargar el proyecto
+### 2️⃣ Descargar/Clonar
 ```bash
-git clone https://github.com/HenSebas/tienda-deportiva.git
+git clone https://github.com/hensebas1805/tienda-deportiva.git
 cd tienda-deportiva
+git checkout semana-3-ui-swing
 ```
 
-### 2. Importar en IntelliJ IDEA
-- File → Open → Selecciona la carpeta del proyecto
-- Maven descargará las dependencias automáticamente
+### 3️⃣ Importar en IntelliJ
+- **File → Open** → Selecciona la carpeta `tienda-deportiva-main`
+- Maven descargará dependencias automáticamente
 
-### 3. Compilar
+### 4️⃣ Compilar Proyecto
 ```bash
+cd tienda-deportiva-main
 mvn clean install
 ```
 
-### 4. Ejecutar
+---
+
+## 🎯 Ejecutar el Sistema
+
+### **PASO 1: Iniciar Backend (API)**
 
 **Opción A - Desde IntelliJ:**
-- Click derecho en `TiendaDeportivaApplication.java` → Run
+1. Busca: `TiendaDeportivaApplication.java`
+2. Click derecho → **Run 'TiendaDeportivaApplication'**
+3. Espera a ver: `Started TiendaDeportivaApplication in X seconds`
 
 **Opción B - Desde terminal:**
 ```bash
+cd tienda-deportiva-main
 mvn spring-boot:run
 ```
 
-## 📚 Acceder a la API
+✅ **La API estará en:** `http://localhost:8080/api`
 
-Una vez que la aplicación está corriendo:
+### **PASO 2: Iniciar Frontend (Swing)**
 
-- **Swagger UI**: http://localhost:8080/api/swagger-ui.html
+1. Busca: `MainFrame.java` (en `src/main/java/com/tienda/deportiva/ui/`)
+2. Click derecho → **Run 'MainFrame.main()'**
+3. ¡Aparece la ventana de la aplicación!
+
+---
+
+## 📊 Acceder a la API
+
+Mientras el Backend está corriendo:
+
+- **Swagger UI** (ver todos los endpoints): http://localhost:8080/api/swagger-ui.html
 - **OpenAPI JSON**: http://localhost:8080/api/v3/api-docs
-- **Consola H2**: http://localhost:8080/api/h2-console
+- **Consola H2** (base de datos): http://localhost:8080/api/h2-console
 
-## 📊 Base de Datos
+---
 
-**Por defecto**: H2 (en memoria)
+## 🎨 Interfaz Gráfica (Swing)
 
-### Credenciales H2:
-- Usuario: `sa`
-- Contraseña: (dejar vacío)
-- JDBC URL: `jdbc:h2:mem:tiendadeportiva`
+La aplicación Swing tiene **4 pestañas principales:**
 
-### Cambiar a MySQL:
-Modifica `application.properties`:
-```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/tienda_deportiva
-spring.datasource.driverClassName=com.mysql.cj.jdbc.Driver
-spring.datasource.username=root
-spring.datasource.password=tuContraseña
-spring.jpa.database-platform=org.hibernate.dialect.MySQLDialect
+### 📦 **Pestaña 1: Productos**
+- ✅ Ver lista de productos
+- ✅ Crear producto (Nombre, Precio, Stock, SKU, Descripción)
+- ✅ Actualizar producto
+- ✅ Eliminar producto
+- ✅ Refrescar lista
+
+### 👥 **Pestaña 2: Clientes**
+- ✅ Ver lista de clientes
+- ✅ Crear cliente (Nombre, Email, Teléfono, Dirección, Ciudad)
+- ✅ Actualizar cliente
+- ✅ Eliminar cliente
+- ✅ Refrescar lista
+
+### 🏷️ **Pestaña 3: Categorías**
+- ✅ Ver lista de categorías
+- ✅ Crear categoría (Nombre, Descripción)
+- ✅ Refrescar lista
+
+### 💳 **Pestaña 4: Ventas**
+- ✅ Ver lista de ventas
+- ✅ Crear nueva venta
+- ✅ Completar venta
+- ✅ Cancelar venta
+- ✅ Refrescar lista
+
+---
+
+## 🔌 Endpoints API (REST)
+
+### **Categorías**
 ```
+GET    /api/categorias              - Listar todas
+POST   /api/categorias              - Crear nueva
+GET    /api/categorias/{id}         - Obtener por ID
+PUT    /api/categorias/{id}         - Actualizar
+DELETE /api/categorias/{id}         - Eliminar
+GET    /api/categorias/buscar       - Buscar por nombre
+```
+
+### **Productos**
+```
+GET    /api/productos               - Listar todas
+POST   /api/productos               - Crear nuevo
+GET    /api/productos/{id}          - Obtener por ID
+PUT    /api/productos/{id}          - Actualizar
+DELETE /api/productos/{id}          - Eliminar
+GET    /api/productos/buscar        - Buscar por nombre
+```
+
+### **Clientes**
+```
+GET    /api/clientes                - Listar todos
+POST   /api/clientes                - Crear nuevo
+GET    /api/clientes/{id}           - Obtener por ID
+PUT    /api/clientes/{id}           - Actualizar
+DELETE /api/clientes/{id}           - Eliminar
+GET    /api/clientes/buscar         - Buscar por nombre
+```
+
+### **Ventas**
+```
+GET    /api/ventas                  - Listar todas
+POST   /api/ventas                  - Crear nueva
+GET    /api/ventas/{id}             - Obtener por ID
+PUT    /api/ventas/{id}/completar   - Completar venta
+PUT    /api/ventas/{id}/cancelar    - Cancelar venta
+```
+
+---
 
 ## 📁 Estructura del Proyecto
 
 ```
-src/main/java/com/tienda/deportiva/
-├── model/              # Entidades JPA
-├── repository/         # Interfaces Repository
-├── service/            # Lógica de negocio
-├── controller/         # REST Controllers
-├── exception/          # Manejo de excepciones
-├── dto/               # Data Transfer Objects
-├── config/            # Configuraciones
-└── TiendaDeportivaApplication.java
+tienda-deportiva-main/
+├── src/main/java/com/tienda/deportiva/
+│   ├── TiendaDeportivaApplication.java     # Punto de entrada Backend
+│   ├── controller/                          # REST Controllers
+│   ├── service/                             # Lógica de negocio
+│   ├── repository/                          # Acceso a datos
+│   ├── model/                               # Entidades JPA
+│   ├── dto/                                 # Data Transfer Objects
+│   ├── exception/                           # Manejo de errores
+│   ├── config/                              # Configuraciones
+│   └── ui/                                  # INTERFAZ SWING
+│       ├── MainFrame.java                   # Ventana principal
+│       ├── ProductoPanel.java               # Gestión productos
+│       ├── ClientePanel.java                # Gestión clientes
+│       ├── CategoriaPanel.java              # Gestión categorías
+│       ├── VentaPanel.java                  # Gestión ventas
+│       └── ApiClient.java                   # Cliente HTTP REST
+│
+├── src/main/resources/
+│   └── application.properties               # Configuración
+│
+├── pom.xml                                  # Dependencias Maven
+└── README.md                                # Este archivo
 ```
-
-## 🔌 Endpoints Principales
-
-### Categorías
-```
-GET    /api/categorias           - Obtener todas
-GET    /api/categorias/{id}      - Obtener por ID
-GET    /api/categorias/buscar?nombre=... - Buscar
-POST   /api/categorias           - Crear
-PUT    /api/categorias/{id}      - Actualizar
-DELETE /api/categorias/{id}      - Eliminar
-```
-
-### Productos
-```
-GET    /api/productos            - Obtener todas
-GET    /api/productos/{id}       - Obtener por ID
-GET    /api/productos/buscar?nombre=...    - Buscar
-GET    /api/productos/categoria/{id}       - Por categoría
-GET    /api/productos/stock-bajo?minimo=10 - Stock bajo
-POST   /api/productos            - Crear
-PUT    /api/productos/{id}       - Actualizar
-DELETE /api/productos/{id}       - Eliminar
-```
-
-### Clientes
-```
-GET    /api/clientes             - Obtener todas
-GET    /api/clientes/{id}        - Obtener por ID
-GET    /api/clientes/buscar?nombre=... - Buscar
-GET    /api/clientes/email/{email}      - Por email
-POST   /api/clientes             - Crear
-PUT    /api/clientes/{id}        - Actualizar
-DELETE /api/clientes/{id}        - Eliminar
-```
-
-### Ventas
-```
-GET    /api/ventas               - Obtener todas
-GET    /api/ventas/{id}          - Obtener por ID
-GET    /api/ventas/cliente/{id}  - Por cliente
-GET    /api/ventas/estado?estado=PENDIENTE - Por estado
-GET    /api/ventas/fecha-rango?inicio=...&fin=... - Por fecha
-POST   /api/ventas               - Crear
-PUT    /api/ventas/{id}/completar - Completar
-PUT    /api/ventas/{id}/cancelar - Cancelar
-GET    /api/ventas/reportes/ingresos-totales   - Reportes
-GET    /api/ventas/reportes/promedio-ventas    - Reportes
-```
-
-## ✅ Validaciones
-
-### Categoría
-- `nombre`: Obligatorio, único
-
-### Producto
-- `nombre`: Obligatorio
-- `precio`: Obligatorio, >= 0
-- `stock`: Obligatorio, >= 0
-- `categoria`: Obligatoria
-
-### Cliente
-- `nombre`: Obligatorio
-- `email`: Obligatorio, válido, único
-- `telefono`: Obligatorio, 10 dígitos
-- `direccion`: Obligatoria
-
-### Venta
-- `cliente`: Obligatorio
-- `detalles`: Al menos 1 producto
-
-## 📋 Reglas de Negocio
-
-1. No se puede vender más de lo disponible en stock
-2. Al completar una venta, se reduce automáticamente el stock
-3. Solo se pueden cancelar ventas pendientes
-4. No se pueden eliminar categorías con productos
-5. No se pueden eliminar clientes con ventas
-
-## 🛠️ Tecnologías
-
-- Spring Boot 3.2.5
-- Spring Data JPA
-- Hibernate ORM
-- H2/MySQL
-- Lombok
-- Springdoc OpenAPI (Swagger)
-- Maven
-
-## 📝 Ejemplo de Uso
-
-**Crear una venta:**
-```json
-POST /api/ventas
-
-{
-  "clienteId": 1,
-  "detalles": [
-    {
-      "productoId": 1,
-      "cantidad": 2
-    },
-    {
-      "productoId": 5,
-      "cantidad": 1
-    }
-  ]
-}
-```
-
-## 📧 Soporte
-
-Para reportar problemas, abre un issue en el repositorio.
 
 ---
 
-**Hecho con ❤️ por HenSebas**
+## ⚙️ Configuración Base de Datos
+
+### **H2 (por defecto - en memoria)**
+```properties
+spring.datasource.url=jdbc:h2:mem:tiendadeportiva
+spring.datasource.driver-class-name=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=
+spring.h2.console.enabled=true
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+```
+
+### **MySQL (opcional)**
+Edita `application.properties`:
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/tienda_deportiva
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.datasource.username=root
+spring.datasource.password=tuContraseña
+spring.jpa.database-platform=org.hibernate.dialect.MySQLDialect
+spring.jpa.hibernate.ddl-auto=create-drop
+```
+
+---
+
+## ✅ Validaciones y Reglas de Negocio
+
+### **Categoría**
+- Nombre: Obligatorio, único
+- Descripción: Opcional
+
+### **Producto**
+- Nombre: Obligatorio
+- Precio: Obligatorio, >= 0
+- Stock: Obligatorio, >= 0
+- SKU: Único
+- Categoría: Obligatoria
+
+### **Cliente**
+- Nombre: Obligatorio
+- Email: Obligatorio, único, válido
+- Teléfono: Obligatorio
+- Dirección: Obligatoria
+- Ciudad: Opcional
+
+### **Venta**
+- Cliente: Obligatorio
+- Detalles: Al menos 1 producto
+- Cantidad: >= 1 y <= stock disponible
+- Estado: PENDIENTE → COMPLETADA/CANCELADA
+
+### **Reglas**
+✅ No se puede vender más de lo que hay en stock
+✅ Al completar, se reduce automáticamente el stock
+✅ Solo se cancelan ventas PENDIENTES
+✅ No se eliminan categorías con productos
+✅ No se eliminan clientes con ventas
+
+---
+
+## 🛠️ Tecnologías Utilizadas
+
+| Componente | Tecnología |
+|-----------|-----------|
+| **Backend** | Spring Boot 3.2.5 |
+| **Frontend** | Java Swing |
+| **ORM** | Spring Data JPA / Hibernate |
+| **Base de Datos** | H2 / MySQL |
+| **HTTP Client** | Java 11+ HttpClient |
+| **JSON** | Gson 2.10.1 |
+| **Build Tool** | Maven |
+| **Java** | 17+ |
+
+---
+
+## 📝 Ejemplo de Uso Completo
+
+### **Flujo de ejemplo:**
+
+1. **Crear Categoría**
+   - Pestaña "Categorías"
+   - Ingresa: Nombre = "Ropa", Descripción = "Prendas deportivas"
+   - Click "Crear"
+
+2. **Crear Producto**
+   - Pestaña "Productos"
+   - Ingresa: Nombre = "Camiseta", Precio = 29.99, Stock = 50, SKU = "CAMI001"
+   - Click "Crear"
+
+3. **Crear Cliente**
+   - Pestaña "Clientes"
+   - Ingresa: Nombre = "Juan Pérez", Email = "juan@email.com", Teléfono = "1234567890"
+   - Click "Crear"
+
+4. **Crear Venta**
+   - Pestaña "Ventas"
+   - Selecciona cliente y producto
+   - Ingresa cantidad
+   - Click "Crear Venta"
+
+5. **Completar Venta**
+   - Selecciona la venta de la lista
+   - Click "Completar"
+   - ✅ Stock se actualiza automáticamente
+
+---
+
+## 🐛 Solución de Problemas
+
+### **"Connection refused" en la UI**
+- ✅ Verifica que el Backend esté corriendo (http://localhost:8080/api/v3/api-docs)
+- ✅ Asegúrate de ejecutar `TiendaDeportivaApplication` primero
+
+### **"Port 8080 already in use"**
+```bash
+# Cambiar puerto en application.properties
+server.port=8081
+```
+
+### **Maven no descarga dependencias**
+```bash
+mvn clean dependency:resolve
+```
+
+### **Errores de validación en la UI**
+- ✅ Todos los campos marcados son obligatorios
+- ✅ El email debe ser válido
+- ✅ El teléfono debe tener 10 dígitos
+- ✅ Precio y Stock deben ser números positivos
+
+---
+
+## 📚 Documentación API Interactiva
+
+Mientras el Backend esté corriendo, visita:
+**http://localhost:8080/api/swagger-ui.html**
+
+Ahí puedes:
+- ✅ Ver todos los endpoints
+- ✅ Probar los endpoints directamente
+- ✅ Ver ejemplos de request/response
+
+---
+
+## 👨‍💻 Autor
+
+**Desarrollado por:** HenSebas  
+**Fecha:** Semana 3 - 2026
+
+---
+
+## 📄 Licencia
+
+Este proyecto es de código abierto y está disponible bajo la licencia Apache 2.0.
+
+---
+
+## 📞 Soporte
+
+Para reportar problemas o sugerencias:
+- Abre un **Issue** en GitHub
+- Email: marbenzk18@gmail.com
+
+---
+
+**¡Listo para usar! 🎉**
